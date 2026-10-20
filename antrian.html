@@ -1,158 +1,495 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ef4444">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Antrian Raw Material - PT. Mayora Indah Tbk</title>
     <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/lib/index.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-    </style>
-</head>
-<body class="bg-rose-50/30 min-h-screen text-slate-800">
-
-    <!-- Top Navbar -->
-    <header class="bg-white border-b border-rose-100 shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-red-500 text-white p-2.5 rounded-xl shadow-md shadow-red-200 flex items-center justify-center">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Dashboard Antrian Raw Material</h1>
-                    <p class="text-xs text-rose-600 font-semibold">PT. Mayora Indah Tbk, Jayanti 3</p>
-                </div>
-            </div>
-
-            <!-- Action Buttons Header -->
-            <div class="flex items-center space-x-2">
-                <div id="live-clock" class="hidden md:flex items-center px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium border border-slate-200">
-                    <svg class="w-3.5 h-3.5 mr-1.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    <span>20/10/2026 09:39:42</span>
-                </div>
-                <button onclick="location.reload()" class="flex items-center px-3 py-1.5 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-lg text-xs font-semibold shadow-sm transition">
-                    <svg class="w-3.5 h-3.5 mr-1 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    Refresh
-                </button>
-                <button class="flex items-center px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold shadow-sm transition">
-                    <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-                    Daftar Manual
-                </button>
-                <a href="monitoring.html" class="hidden sm:flex items-center px-3 py-1.5 bg-white border border-rose-200 text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-semibold transition">
-                    Monitoring
-                </a>
-                <a href="index.html" class="flex items-center px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-lg text-xs font-semibold shadow-sm transition">
-                    Portal
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        body { background-color: #fff1f2/20; color: #334155; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11px; margin: 0; }
         
-        <!-- Search & Filter Bar -->
-        <div class="bg-white p-4 rounded-2xl border border-rose-100 shadow-sm mb-6">
-            <div class="relative mb-4">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                </span>
-                <input type="text" placeholder="Cari nomor urut / nama / no.pol / supplier / material..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-red-500 focus:bg-white transition">
-            </div>
+        /* Header Utama dengan nuansa Merah-Kuning Pastel */
+        .nav-bar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #fee2e2; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); position: sticky; top: 0; z-index: 40; flex-wrap: wrap; gap: 10px; }
+        .nav-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+        
+        @media (max-width: 768px) {
+            .nav-bar { flex-direction: column; align-items: stretch; padding: 10px 12px; }
+            .nav-bar > div { width: 100%; justify-content: space-between; }
+            .nav-actions { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .nav-actions .btn-nav, .nav-actions a { width: 100%; justify-content: center; text-align: center; }
+        }
 
-            <!-- Status Tabs (Termasuk Filter Ditolak) -->
-            <div class="flex flex-wrap gap-2">
-                <button class="px-4 py-1.5 bg-red-500 text-white rounded-full text-xs font-semibold shadow-sm">Semua ( 2 )</button>
-                <button class="px-4 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full text-xs font-semibold transition">Antrian ( 0 )</button>
-                <button class="px-4 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full text-xs font-semibold transition">Proses QC ( 1 )</button>
-                <button class="px-4 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full text-xs font-semibold transition">Proses Bongkar ( 1 )</button>
-                <button class="px-4 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full text-xs font-semibold transition">Selesai ( 0 )</button>
-                <button class="px-4 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-full text-xs font-semibold transition">Ditolak / Reject ( 0 )</button>
+        .btn-nav { padding: 6px 12px; border-radius: 10px; border: 1px solid #fecdd3; background: #fff; cursor: pointer; font-size: 11px; font-weight: 600; color: #475569; display: flex; align-items: center; gap: 6px; text-decoration: none; transition: 0.2s; }
+        .btn-nav:hover { background: #fff1f2; color: #e11d48; border-color: #fda4af; }
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 16px; }
+        
+        .sticky-header-section {
+            position: sticky;
+            top: 57px;
+            background: #fff8f8;
+            z-index: 30;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            box-shadow: 0 4px 6px -4px rgba(0,0,0,0.05);
+        }
+
+        .card { background: white; border: 1px solid #fee2e2; border-radius: 16px; padding: 16px 20px 16px 24px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.02); display: flex; flex-direction: column; gap: 8px; transition: 0.2s; width: 100%; box-sizing: border-box; position: relative; overflow: visible; }
+        .card:hover { box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-color: #fca5a5; }
+        
+        .card-ribbon {
+            position: absolute;
+            top: -2px;
+            left: -8px;
+            padding: 2px 10px 2px 8px;
+            font-size: 9px;
+            font-weight: bold;
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.06);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        .card-ribbon::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-top: 4px solid rgba(0,0,0,0.15);
+            border-left: 8px solid transparent;
+        }
+        .ribbon-supplier { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; border-left: none; }
+
+        .date-divider-container { display: flex; align-items: center; text-align: center; margin: 24px 0 14px 0; width: 100%; }
+        .date-divider-container::before, .date-divider-container::after { content: ''; flex: 1; border-bottom: 2px solid #fee2e2; }
+        .date-divider-label { padding: 0 16px; font-size: 11px; font-weight: bold; color: #b91c1c; background: #fff8f8; display: flex; align-items: center; gap: 6px; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.05em; }
+
+        .btn { padding: 6px 14px; border-radius: 10px; cursor: pointer; font-weight: 600; border: 1px solid #fecdd3; background: white; transition: 0.2s; font-size: 11px; display: inline-flex; align-items: center; gap: 5px; }
+        .btn-primary { background: #ef4444; color: white; border: none; }
+        .btn-primary:hover { background: #dc2626; }
+        .btn-danger { background: #fff1f2; color: #9f1239; border-color: #fecdd3; }
+        .btn-danger:hover { background: #ffe4e6; }
+        
+        .tabs { display: flex; justify-content: center; gap: 6px; border-bottom: 2px solid #fee2e2; padding-bottom: 10px; overflow-x: auto; scrollbar-width: thin; }
+        .tab-btn { padding: 7px 14px; cursor: pointer; border-radius: 10px; border: 1px solid #fecdd3; background: white; font-weight: 600; color: #64748b; font-size: 11px; white-space: nowrap; transition: 0.2s; display: inline-flex; align-items: center; gap: 6px; }
+        .tab-btn.active { background: #ef4444; color: white; border-color: #ef4444; box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2); }
+        .tab-btn:hover:not(.active) { background: #fff1f2; color: #991b1b; }
+        
+        .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(4px); align-items: center; justify-content: center; z-index: 1000; padding: 16px; box-sizing: border-box; }
+        .modal-content { background: white; padding: 24px; border-radius: 20px; width: 100%; max-width: 650px; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); position: relative; }
+        .form-group { margin-bottom: 14px; }
+        label { font-size: 11px; font-weight: bold; color: #475569; display: block; margin-bottom: 5px; }
+        input, select, textarea { width: 100%; padding: 9px 12px; border: 1px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; font-size: 11px; font-family: 'Segoe UI', sans-serif; background: #fff; color: #334155; transition: 0.2s; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); }
+    </style>
+   <!-- Firebase SDK CDN -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where, setDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAlxd0ylL1KZNiYAXvosDL8H_M7g8b-naw",
+        authDomain: "portal-whmayora-jayanti3.firebaseapp.com",
+        projectId: "portal-whmayora-jayanti3",
+        storageBucket: "portal-whmayora-jayanti3.firebasestorage.app",
+        messagingSenderId: "805832777917",
+        appId: "1:805832777917:web:5ba4a61448d97189d4d7d4"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    window.db = getFirestore(app);
+    window.firebaseCollections = { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where, setDoc };
+
+    if (typeof loadDataFromCloud === 'function') {
+        loadDataFromCloud();
+    }
+</script>
+</head>
+<body style="background-color: #fff5f5;">
+
+<header class="nav-bar">
+    <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span style="font-weight:bold; font-size:13px; color:#991b1b; display: flex; align-items: center; gap: 8px;">
+            <i class="fa-solid fa-truck-ramp-box text-red-500"></i> Antrian Raw Material - PT. Mayora Indah Tbk
+        </span>
+        <span id="realTimeClock" style="font-size: 11px; color: #7f1d1d; background: #fef2f2; padding: 4px 10px; border-radius: 8px; border: 1px solid #fee2e2; font-weight: 600;">
+            <i class="fa-regular fa-clock text-red-500 mr-1"></i> Memuat waktu...
+        </span>
+    </div>
+    <div class="nav-actions">
+        <button class="btn-nav" onclick="loadDataFromCloud()" style="background: #fef2f2; color: #991b1b; border-color: #fecdd3;">
+            <i class="fa-solid fa-rotate"></i> Refresh
+        </button>
+        <button class="btn-nav" onclick="openManualModal()" style="background: #fef3c7; color: #92400e; border-color: #fde68a;">
+            <i class="fa-solid fa-plus"></i> Daftar Manual
+        </button>
+        <a href="monitoring.html" class="btn-nav" style="color:#991b1b;">
+            <i class="fa-solid fa-chart-pie"></i> Monitoring
+        </a>
+        <a href="index.html" class="btn-nav" style="background:#fff; border-color:#fecdd3; color:#9f1239;">
+            <i class="fa-solid fa-house"></i> Portal
+        </a>
+    </div>
+</header>
+
+<div class="sticky-header-section">
+    <div style="background: #fef2f2; color: #991b1b; padding: 8px 16px; margin: 0 16px 10px 16px; border-radius: 10px; overflow: hidden; border: 1px solid #fee2e2; box-sizing: border-box;">
+        <marquee behavior="scroll" direction="left" scrollamount="5" style="font-size: 11px; font-weight: 500;">
+            <span id="rtSemua" style="margin-right: 30px;">📋 Semua: <b>0</b></span>
+            <span id="rtAntrian" style="margin-right: 30px;">📥 Masuk: <b>0</b></span>
+            <span id="rtQc" style="margin-right: 30px;">🔬 Proses QC: <b>0</b></span>
+            <span id="rtBongkar" style="margin-right: 30px;">🏗️ Proses Bongkar: <b>0</b></span>
+            <span id="rtSelesai" style="margin-right: 30px;">✅ Selesai: <b>0</b></span>
+            <span id="rtReject" style="margin-right: 30px;">❌ Ditolak: <b>0</b></span>
+        </marquee>
+    </div>
+
+    <div class="container" style="margin: 0 auto; padding: 0 16px;">
+        <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 250px; position: relative;">
+                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8;"></i>
+                <input type="text" id="searchInput" class="form-control" placeholder="Cari no.pol / sopir / supplier / material / no.doc..." style="padding-left: 34px;" oninput="renderAll()">
             </div>
+            <button class="btn" onclick="resetData()" style="background: #fff1f2; color: #9f1239; border-color: #fecdd3;">
+                <i class="fa-solid fa-trash-can"></i> Reset Data
+            </button>
         </div>
 
-        <!-- Tanggal Header Section -->
-        <div class="flex items-center justify-center my-6">
-            <div class="px-4 py-1 bg-amber-100 text-amber-800 border border-amber-200 rounded-full text-xs font-bold tracking-wide shadow-sm">
-                📅 TANGGAL: 20/10/2026[cite: 2]
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchMainTab('SemuaTab', this)">Semua (<span id="countSemuaTab">0</span>)</button>
+            <button class="tab-btn" onclick="switchMainTab('AntrianTab', this)">Masuk (<span id="countAntrianTab">0</span>)</button>
+            <button class="tab-btn" onclick="switchMainTab('QcTab', this)">Proses QC (<span id="countQcTab">0</span>)</button>
+            <button class="tab-btn" onclick="switchMainTab('BongkarTab', this)">Proses Bongkar (<span id="countBongkarTab">0</span>)</button>
+            <button class="tab-btn" onclick="switchMainTab('SelesaiTab', this)">Selesai (<span id="countSelesaiTab">0</span>)</button>
+            <button class="tab-btn" onclick="switchMainTab('RejectTab', this)">Ditolak ❌ (<span id="countRejectTab">0</span>)</button>
+            <button class="tab-btn" onclick="switchMainTab('KeluarTab', this)">Keluar (<span id="countKeluarTab">0</span>)</button>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top: 15px;">
+    <div id="tabContentArea">
+        <div id="antrianCardContainer"></div>
+    </div>
+</div>
+
+<!-- Modal Pendaftaran Truk Masuk RM -->
+<div id="modalManual" class="modal">
+    <div class="modal-content">
+        <button type="button" onclick="closeModal('modalManual')" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:14px; font-weight:bold; cursor:pointer; color:#64748b; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #f1f5f9;"><i class="fa-solid fa-xmark"></i></button>
+        <h4 style="margin-top:0; color:#991b1b; font-size: 13px; font-weight: bold; border-bottom: 1px solid #fee2e2; padding-bottom: 10px; margin-bottom: 14px;">Form Kedatangan Truk Raw Material</h4>
+        <form id="formPendaftaranTruk" onsubmit="submitAntrian(event)">
+            <div class="form-group"><label>Tanggal Masuk *</label><input type="date" id="mTanggal" required></div>
+            <div class="form-group"><label>Nama Sopir *</label><input type="text" id="mSopir" required placeholder="Contoh: Arief"></div>
+            <div class="form-group"><label>Nama Supplier / Ekspedisi *</label><input type="text" id="mSupplier" required placeholder="Contoh: PT. Wilmar / Indofood"></div>
+            <div class="form-group"><label>No. Polisi Truk *</label><input type="text" id="mNoPol" required placeholder="B 1234 XYZ"></div>
+            <div class="form-group"><label>No. Dokumen / PO *</label><input type="text" id="mNoDoc" required placeholder="Contoh: RM-2026-001"></div>            
+            <div class="form-group"><label>Nama Barang / Material Diterima *</label><input type="text" id="mMaterial" required placeholder="Contoh: Gula Pasir Kristal (50 Ton)"></div>
+
+            <div style="display:flex; gap:10px; margin-top:16px;">
+                <button type="submit" class="btn btn-primary" style="flex:1; justify-content: center; padding: 10px;">Daftarkan Kedatangan Truk →</button>
+                <button type="button" class="btn" onclick="closeModal('modalManual')" style="padding: 10px;">Batal</button>
             </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal Pindah Status & Timestamp Otomatis RM -->
+<div id="modalStatus" class="modal">
+    <div class="modal-content" style="max-width: 500px;">
+        <button type="button" onclick="closeModal('modalStatus')" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:14px; font-weight:bold; cursor:pointer; color:#64748b; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #f1f5f9;"><i class="fa-solid fa-xmark"></i></button>
+        <h4 style="margin-top:0; color:#991b1b; font-size: 13px; font-weight: bold; border-bottom: 1px solid #fee2e2; padding-bottom: 10px; margin-bottom: 14px;">Pindah Status & Catat Waktu (Timestamp)</h4>
+        
+        <div class="form-group">
+            <label>Pilih Status Tahapan Truk *</label>
+            <select id="selectStatus" onchange="checkStatusModalFields()">
+                <option value="Masuk">Masuk / Antrian Gerbang</option>
+                <option value="Proses QC">Mulai / Proses QC Lab</option>
+                <option value="Proses Bongkar">Mulai / Proses Bongkar (Unloading)</option>
+                <option value="Selesai">Selesai Bongkar</option>
+                <option value="Ditolak / Reject">Ditolak / Reject (Barang/Dokumen Tidak Sesuai)</option>
+                <option value="Keluar">Keluar Pabrik</option>
+            </select>
         </div>
 
-        <!-- List Kartu Antrian Truk Raw Material -->
-        <div class="space-y-4">
-            
-            <!-- Kartu Item 1 (Normal / Proses Bongkar) -->
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition p-4 sm:p-5">
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                    
-                    <!-- Info Utama -->
-                    <div class="space-y-2 flex-grow">
-                        <div class="flex flex-wrap items-center gap-2">
-                            <span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-lg text-xs font-bold border border-amber-200">No. 001[cite: 2]</span>
-                            <span class="font-bold text-slate-900 text-base">B 9807 UFZ[cite: 2]</span>
-                            <span class="text-slate-400">•</span>
-                            <span class="text-sm font-semibold text-rose-600">PT. Indofood Sukses Makmur</span>
-                            <span class="text-slate-400">•</span>
-                            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono font-medium">Doc: RM-2026-001[cite: 2]</span>
-                        </div>
+        <div id="rejectNoteDiv" class="form-group" style="display:none; background:#fef2f2; border:1px solid #fecaca; border-radius:10px; padding:10px;">
+            <label style="color:#b91c1c;">Alasan Penolakan / Reject *</label>
+            <input type="text" id="inputRejectReason" placeholder="Cth: Dokumen PO tidak sesuai / barang rusak berair">
+        </div>
 
-                        <!-- Detail Material & Sopir -->
-                        <div class="text-xs text-slate-600 flex flex-wrap items-center gap-y-1 gap-x-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
-                            <div>Sopir: <span class="font-semibold text-slate-800">Arief pudin</span>[cite: 2]</div>
-                            <a href="https://wa.me/" target="_blank" class="inline-flex items-center text-emerald-600 bg-emerald-50 hover:bg-emerald-100 px-2 py-0.5 rounded-full font-medium transition">
-                                <svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448c-1.638.271-6.103.95-6.103.95zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                                083853325743[cite: 2]
-                            </a>
-                            <span class="text-slate-300">|</span>
-                            <div>📦 Material Diterima: <span class="font-bold text-blue-700">Gula Pasir Kristal (Qty: 50 Ton)</span></div>
-                            <span class="text-slate-300">|</span>
-                            <div>Checker QC: <span class="font-semibold text-rose-600">BUDI</span></div>
-                            <span class="text-slate-300">|</span>
-                            <div>Lokasi Bongkar: <span class="font-semibold text-slate-800">Dock Gudang A</span></div>
-                        </div>
+        <div style="display:flex; gap:10px; margin-top:20px;">
+            <button class="btn btn-primary" onclick="saveStatusRM()" style="flex:1; justify-content: center; padding: 10px;">Simpan & Rekam Timestamp ⚡</button>
+            <button type="button" class="btn" onclick="closeModal('modalStatus')" style="padding: 10px;">Batal</button>
+        </div>
+    </div>
+</div>
 
-                        <!-- Waktu Timestamp Berdasarkan Perubahan Status -->
-                        <div class="pt-1 flex flex-wrap items-center gap-2 text-xs font-medium">
-                            <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg border border-slate-200">📥 Masuk: 07:11[cite: 2]</span>
-                            <span class="px-2.5 py-1 bg-amber-50 text-amber-800 rounded-lg border border-amber-200">🔬 Start QC: 07:30</span>
-                            <span class="px-2.5 py-1 bg-blue-50 text-blue-800 rounded-lg border border-blue-200">🏁 Finish QC: 08:15</span>
-                            <span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-lg border border-emerald-200">🏗️ Start Bongkar: 08:29[cite: 2]</span>
-                            <span class="px-2.5 py-1 bg-purple-50 text-purple-800 rounded-lg border border-purple-200">✅ Finish Bongkar: 13:10[cite: 2]</span>
-                            <span class="px-2.5 py-1 bg-red-50 text-red-700 rounded-lg border border-red-200 font-bold">📤 Keluar: 13:23[cite: 2]</span>
-                        </div>
+<script>
+function updateClock() {
+    const now = new Date();
+    const dateStr = String(now.getDate()).padStart(2, '0') + '/' + String(now.getMonth() + 1).padStart(2, '0') + '/' + now.getFullYear();
+    const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ':' + String(now.getSeconds()).padStart(2, '0');
+    const clockEl = document.getElementById('realTimeClock');
+    if(clockEl) clockEl.innerHTML = `<i class="fa-regular fa-clock text-red-500 mr-1"></i> ${dateStr} ${timeStr}`;
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+function openManualModal() {
+    let formEl = document.getElementById('formPendaftaranTruk');
+    if (formEl) formEl.reset(); 
+    let todayIso = new Date().toISOString().split('T')[0];
+    document.getElementById('mTanggal').value = todayIso;
+    openModal('modalManual');
+}
+
+let truckQueue = [];
+
+async function loadDataFromCloud() {
+    if (!window.db) return;
+    try {
+        const { collection, getDocs } = window.firebaseCollections;
+        let snap = await getDocs(collection(window.db, 'antrian_raw_material'));
+        
+        truckQueue = [];
+        snap.forEach(d => {
+            truckQueue.push({ ...d.data(), firestoreId: d.id });
+        });
+        renderAll();
+        updateRunningTextSummary();
+    } catch (e) {
+        console.error('Error load database:', e);
+    }
+}
+
+function updateRunningTextSummary() {
+    let countSemua = truckQueue.length;
+    let countAntri = truckQueue.filter(t => t.status === 'Masuk').length;
+    let countQc = truckQueue.filter(t => t.status === 'Proses QC').length;
+    let countBongkar = truckQueue.filter(t => t.status === 'Proses Bongkar').length;
+    let countSelesai = truckQueue.filter(t => t.status === 'Selesai').length;
+    let countReject = truckQueue.filter(t => t.status === 'Ditolak / Reject').length;
+
+    if(document.getElementById('rtSemua')) document.getElementById('rtSemua').querySelector('b').innerText = countSemua;
+    if(document.getElementById('rtAntrian')) document.getElementById('rtAntrian').querySelector('b').innerText = countAntri;
+    if(document.getElementById('rtQc')) document.getElementById('rtQc').querySelector('b').innerText = countQc;
+    if(document.getElementById('rtBongkar')) document.getElementById('rtBongkar').querySelector('b').innerText = countBongkar;
+    if(document.getElementById('rtSelesai')) document.getElementById('rtSelesai').querySelector('b').innerText = countSelesai;
+    if(document.getElementById('rtReject')) document.getElementById('rtReject').querySelector('b').innerText = countReject;
+}
+
+async function submitAntrian(e) {
+    e.preventDefault();
+    const { addDoc, collection, getDocs, query, where } = window.firebaseCollections;
+
+    let tanggalVal = document.getElementById('mTanggal').value;
+    let currentTimeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    let currentIsoTime = new Date().toISOString();
+
+    try {
+        const q = query(collection(window.db, 'antrian_raw_material'), where("tanggal", "==", tanggalVal));
+        const querySnapshot = await getDocs(q);
+        let maxSeq = 0;
+        querySnapshot.forEach(docSnap => {
+            let seq = parseInt(docSnap.data().no_urut) || 0;
+            if (seq > maxSeq) maxSeq = seq;
+        });
+
+        let nextNumber = maxSeq + 1;
+        let formattedQueueNumber = String(nextNumber).padStart(3, '0');
+
+        let newRecord = {
+            tanggal: tanggalVal,
+            no_urut: formattedQueueNumber,
+            sopir: document.getElementById('mSopir').value,
+            supplier: document.getElementById('mSupplier').value,
+            no_pol: document.getElementById('mNoPol').value.toUpperCase(),
+            no_doc: document.getElementById('mNoDoc').value,
+            material: document.getElementById('mMaterial').value,
+            status: 'Masuk',
+            time_masuk: currentTimeStr,
+            time_start_qc: '-',
+            time_finish_qc: '-',
+            time_start_bongkar: '-',
+            time_finish_bongkar: '-',
+            time_keluar: '-',
+            reject_reason: '-',
+            created_at: currentIsoTime
+        };
+
+        await addDoc(collection(window.db, 'antrian_raw_material'), newRecord);
+        alert(`Truk Raw Material berhasil didaftarkan dengan No. Urut: ${formattedQueueNumber} !`);
+        closeModal('modalManual');
+        loadDataFromCloud();
+    } catch (err) {
+        alert('Gagal menyimpan ke database: ' + err.message);
+    }
+}
+
+let activeTruckIndex = null;
+function openStatusModal(idx) {
+    activeTruckIndex = idx;
+    let t = truckQueue[idx];
+    document.getElementById('selectStatus').value = t.status;
+    checkStatusModalFields();
+    openModal('modalStatus');
+}
+
+function checkStatusModalFields() {
+    let st = document.getElementById('selectStatus').value;
+    document.getElementById('rejectNoteDiv').style.display = (st === 'Ditolak / Reject') ? 'block' : 'none';
+}
+
+async function saveStatusRM() {
+    if (activeTruckIndex === null) return;
+    let t = truckQueue[activeTruckIndex];
+    let newStatus = document.getElementById('selectStatus').value;
+    let currentTimeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    
+    let updateData = { status: newStatus };
+    
+    if (newStatus === 'Proses QC' && t.time_start_qc === '-') updateData.time_start_qc = currentTimeStr;
+    if (newStatus === 'Proses Bongkar') {
+        if (t.time_finish_qc === '-') updateData.time_finish_qc = currentTimeStr;
+        if (t.time_start_bongkar === '-') updateData.time_start_bongkar = currentTimeStr;
+    }
+    if (newStatus === 'Selesai' && t.time_finish_bongkar === '-') updateData.time_finish_bongkar = currentTimeStr;
+    if (newStatus === 'Keluar' && t.time_keluar === '-') updateData.time_keluar = currentTimeStr;
+    if (newStatus === 'Ditolak / Reject') {
+        updateData.reject_reason = document.getElementById('inputRejectReason').value || 'Tidak memenuhi spesifikasi QC';
+    }
+
+    const { updateDoc, doc } = window.firebaseCollections;
+    try {
+        await updateDoc(doc(window.db, 'antrian_raw_material', t.firestoreId), updateData);
+        closeModal('modalStatus');
+        loadDataFromCloud();
+        alert('Status dan Timestamp berhasil diperbarui!');
+    } catch (err) {
+        alert('Gagal update status: ' + err.message);
+    }
+}
+
+async function deleteTruck(idx) {
+    let t = truckQueue[idx];
+    if (confirm(`Yakin ingin menghapus data truk ${t.no_pol}?`)) {
+        const { deleteDoc, doc } = window.firebaseCollections;
+        try {
+            await deleteDoc(doc(window.db, 'antrian_raw_material', t.firestoreId));
+            loadDataFromCloud();
+        } catch (err) {
+            alert('Gagal menghapus: ' + err.message);
+        }
+    }
+}
+
+let currentMainTab = 'SemuaTab';
+function switchMainTab(tabName, btn) {
+    currentMainTab = tabName;
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    renderAll();
+}
+
+function renderAll() {
+    let container = document.getElementById('antrianCardContainer');
+    let keyword = (document.getElementById('searchInput').value || '').toLowerCase();
+    if(!container) return;
+
+    document.getElementById('countSemuaTab').innerText = truckQueue.length;
+    document.getElementById('countAntrianTab').innerText = truckQueue.filter(t => t.status === 'Masuk').length;
+    document.getElementById('countQcTab').innerText = truckQueue.filter(t => t.status === 'Proses QC').length;
+    document.getElementById('countBongkarTab').innerText = truckQueue.filter(t => t.status === 'Proses Bongkar').length;
+    document.getElementById('countSelesaiTab').innerText = truckQueue.filter(t => t.status === 'Selesai').length;
+    document.getElementById('countRejectTab').innerText = truckQueue.filter(t => t.status === 'Ditolak / Reject').length;
+
+    let filtered = truckQueue.filter(t => {
+        let matchTab = true;
+        if(currentMainTab === 'AntrianTab') matchTab = (t.status === 'Masuk');
+        else if(currentMainTab === 'QcTab') matchTab = (t.status === 'Proses QC');
+        else if(currentMainTab === 'BongkarTab') matchTab = (t.status === 'Proses Bongkar');
+        else if(currentMainTab === 'SelesaiTab') matchTab = (t.status === 'Selesai');
+        else if(currentMainTab === 'RejectTab') matchTab = (t.status === 'Ditolak / Reject');
+        else if(currentMainTab === 'KeluarTab') matchTab = (t.status === 'Keluar');
+
+        let textMatch = (t.no_pol.toLowerCase().includes(keyword) || 
+                         t.sopir.toLowerCase().includes(keyword) || 
+                         t.supplier.toLowerCase().includes(keyword) || 
+                         t.material.toLowerCase().includes(keyword) ||
+                         t.no_doc.toLowerCase().includes(keyword));
+        return matchTab && textMatch;
+    });
+
+    if(filtered.length === 0) {
+        container.innerHTML = '<div class="card" style="text-align:center; color:#94a3b8; padding:30px;">Tidak ada data antrian raw material.</div>';
+        return;
+    }
+
+    let html = '';
+    filtered.forEach((t, idx) => {
+        let cleanPhone = '628123456789';
+        let rejectInfo = (t.status === 'Ditolak / Reject') ? `<br><span style="color:#b91c1c; font-weight:bold;">⚠️ Alasan Tolak: ${t.reject_reason || '-'}</span>` : '';
+
+        html += `<div class="card">
+            <div class="card-ribbon ribbon-supplier">Supplier RM</div>
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap;">
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 6px;">
+                    <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        <span style="background:#fef3c7; color:#b45309; padding:2px 8px; border-radius:6px; font-weight:bold; font-size:10px;">No. ${t.no_urut}</span>
+                        <strong style="font-size:12px; color:#1e293b;">${t.no_pol}</strong>
+                        <span style="color:#cbd5e1;">&bull;</span>
+                        <span style="font-weight:600; color:#991b1b;">${t.supplier}</span>
+                        <span style="color:#cbd5e1;">&bull;</span>
+                        <span style="color:#0284c7; font-weight:600;">Doc: ${t.no_doc}</span>
                     </div>
 
-                    <!-- Action Buttons Card (Termasuk Tombol Tolak / Reject) -->
-                    <div class="flex items-center gap-2 self-end lg:self-center">
-                        <button class="px-3 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-xl text-xs font-semibold transition border border-rose-200">
-                            ❌ Tolak
-                        </button>
-                        <button class="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-xl text-xs font-semibold transition border border-blue-200">
-                            Detail
-                        </button>
-                        <button class="px-3 py-1.5 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-xl text-xs font-semibold transition border border-amber-200">
-                            Arsip
-                        </button>
-                        <button class="px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl text-xs font-semibold transition border border-slate-200">
-                            Hapus
-                        </button>
+                    <div style="color:#475569; font-size:11px;">
+                        Sopir: <strong>${t.sopir}</strong> | 📦 Material: <b style="color:#1d4ed8;">${t.material}</b> ${rejectInfo}
                     </div>
 
+                    <div style="font-size: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 2px;">
+                        <span style="background:#f1f5f9; color:#334155; padding:3px 8px; border-radius:6px; font-weight:bold;">Status: ${t.status}</span>
+                        <span style="background:#eff6ff; color:#1d4ed8; padding:3px 8px; border-radius:6px; font-weight:bold;">📥 Masuk: ${t.time_masuk}</span>
+                        <span style="background:#fef3c7; color:#92400e; padding:3px 8px; border-radius:6px; font-weight:bold;">🔬 Start QC: ${t.time_start_qc}</span>
+                        <span style="background:#e0e7ff; color:#3730a3; padding:3px 8px; border-radius:6px; font-weight:bold;">🏁 Finish QC: ${t.time_finish_qc}</span>
+                        <span style="background:#ecfdf5; color:#065f46; padding:3px 8px; border-radius:6px; font-weight:bold;">🏗️ Start Bongkar: ${t.time_start_bongkar}</span>
+                        <span style="background:#f3e8ff; color:#6b21a8; padding:3px 8px; border-radius:6px; font-weight:bold;">✅ Finish Bongkar: ${t.time_finish_bongkar}</span>
+                        <span style="background:#fef2f2; color:#b91c1c; padding:3px 8px; border-radius:6px; font-weight:bold;">📤 Keluar: ${t.time_keluar}</span>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:6px; align-items:center;">
+                    <button class="btn btn-primary" onclick="openStatusModal(${truckQueue.indexOf(t)})">Pindah Status</button>
+                    <button class="btn btn-danger" onclick="deleteTruck(${truckQueue.indexOf(t)})">Hapus</button>
                 </div>
             </div>
+        </div>`;
+    });
 
-        </div>
+    container.innerHTML = html;
+}
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-rose-100 py-4 text-center text-xs text-slate-400 mt-12">
-        &copy; 2026 PT. Mayora Indah Tbk, Jayanti 3 • Raw Material Inbound Queue PWA
-    </footer>
-
+async function resetData() {
+    if (confirm('Yakin ingin mereset semua data antrian raw material?')) {
+        const { getDocs, collection, deleteDoc, doc } = window.firebaseCollections;
+        let snap = await getDocs(collection(window.db, 'antrian_raw_material'));
+        for (let d of snap.docs) {
+            await deleteDoc(doc(window.db, 'antrian_raw_material', d.id));
+        }
+        loadDataFromCloud();
+    }
+}
+</script>
 </body>
 </html>
