@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Warehouse Raw Material - PT. Mayora Indah Tbk</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-rose-50/30 min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white border-b border-rose-100 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <!-- Ikon dengan nuansa Merah Pastel -->
+                <div class="bg-red-500 text-white p-2.5 rounded-xl shadow-md shadow-red-200 flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 tracking-tight">Portal Raw Material</h1>
+                    <p class="text-xs text-rose-600 font-semibold">PT. Mayora Indah Tbk, Jayanti 3</p>
+                </div>
+            </div>
+            <div>
+                <!-- Badge dengan sentuhan Kuning Pastel -->
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-100 text-amber-800 border border-amber-200">
+                    PWA System • Firebase Connected
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-6xl mx-auto px-4 py-12 flex-grow flex flex-col items-center justify-center">
+        
+        <div class="text-center mb-10">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Pilih Modul Aplikasi</h2>
+            <p class="text-slate-500 mt-2 text-sm sm:text-base">Silakan pilih menu di bawah ini untuk masuk ke masing-masing sistem operasional gudang bahan baku.</p>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl">
+            
+            <!-- Modul 1: Antrian Kedatangan (Aksen Kuning Pastel) -->
+            <div class="bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-xl hover:border-amber-300 transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                <div class="p-6">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-xl flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-white transition-colors shadow-sm">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Antrian Kedatangan</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Manajemen truk masuk, pencatatan supplier, nomor urut kedatangan, dan status bongkar muat.</p>
+                </div>
+                <div class="px-6 py-4 bg-amber-50/50 border-t border-amber-100 flex items-center justify-between">
+                    <a href="antrian.html" class="text-sm font-semibold text-amber-700 hover:text-amber-800 flex items-center space-x-1">
+                        <span>Buka Aplikasi</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Modul 2: Monitoring Raw Material (Aksen Merah Pastel) -->
+            <div class="bg-white rounded-2xl border border-rose-100 shadow-sm hover:shadow-xl hover:border-rose-300 transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                <div class="p-6">
+                    <div class="w-12 h-12 bg-rose-100 text-rose-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-red-500 group-hover:text-white transition-colors shadow-sm">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Monitoring Raw Material</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Dashboard stok bahan baku, status ketersediaan, laporan gudang, dan sinkronisasi data.</p>
+                </div>
+                <div class="px-6 py-4 bg-rose-50/50 border-t border-rose-100 flex items-center justify-between">
+                    <a href="monitoring.html" class="text-sm font-semibold text-rose-600 hover:text-rose-700 flex items-center space-x-1">
+                        <span>Buka Aplikasi</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Modul 3: Pengiriman ke Produksi (Kombinasi Kuning & Merah Pastel) -->
+            <div class="bg-white rounded-2xl border border-amber-100 shadow-sm hover:shadow-xl hover:border-amber-300 transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                <div class="p-6">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-800 rounded-xl flex items-center justify-center mb-4 group-hover:bg-amber-500 group-hover:text-white transition-colors shadow-sm">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Pengiriman ke Produksi</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">Pencatatan pengeluaran material ke lini produksi berdasarkan nomor batch dan sistem FIFO.</p>
+                </div>
+                <div class="px-6 py-4 bg-amber-50/50 border-t border-amber-100 flex items-center justify-between">
+                    <a href="produksi.html" class="text-sm font-semibold text-amber-700 hover:text-amber-800 flex items-center space-x-1">
+                        <span>Buka Aplikasi</span>
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-rose-100 py-4 text-center text-xs text-slate-400">
+        &copy; 2026 PT. Mayora Indah Tbk, Jayanti 3 • Raw Material PWA System
+    </footer>
+
+</body>
+</html>
