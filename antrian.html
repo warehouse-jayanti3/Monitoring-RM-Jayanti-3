@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Antrian Raw Material - PT. Mayora Indah Tbk</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-rose-50/30 min-h-screen text-slate-800">
+
+    <!-- Top Navbar -->
+    <header class="bg-white border-b border-rose-100 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-red-500 text-white p-2.5 rounded-xl shadow-md shadow-red-200 flex items-center justify-center">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-slate-900 tracking-tight">Dashboard Antrian Raw Material</h1>
+                    <p class="text-xs text-rose-600 font-semibold">PT. Mayora Indah Tbk, Jayanti 3</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons Header -->
+            <div class="flex items-center space-x-2">
+                <div id="live-clock" class="hidden md:flex items-center px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-medium border border-slate-200">
+                    <svg class="w-3.5 h-3.5 mr-1.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    <span>20/10/2026 09:39:42</span>
+                </div>
+                <button onclick="location.reload()" class="flex items-center px-3 py-1.5 bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 rounded-lg text-xs font-semibold shadow-sm transition">
+                    <svg class="w-3.5 h-3.5 mr-1 text-blue-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    Refresh
+                </button>
+                <button class="flex items-center px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold shadow-sm transition">
+                    <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                    Daftar Manual
+                </button>
+                <a href="monitoring.html" class="hidden sm:flex items-center px-3 py-1.5 bg-white border border-rose-200 text-rose-600 hover:bg-rose-50 rounded-lg text-xs font-semibold transition">
+                    Monitoring
+                </a>
+                <a href="index.html" class="flex items-center px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-lg text-xs font-semibold shadow-sm transition">
+                    Portal
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- Search & Filter Bar -->
+        <div class="bg-white p-4 rounded-2xl border border-rose-100 shadow-sm mb-6">
+            <div class="relative mb-4">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </span>
+                <input type="text" placeholder="Cari nomor urut / nama / no.pol / supplier / material..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:border-red-500 focus:bg-white transition">
+            </div>
+
+            <!-- Status Tabs (Termasuk Filter Ditolak) -->
+            <div class="flex flex-wrap gap-2">
+                <button class="px-4 py-1.5 bg-red-500 text-white rounded-full text-xs font-semibold shadow-sm">Semua ( 2 )</button>
+                <button class="px-4 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full text-xs font-semibold transition">Antrian ( 0 )</button>
+                <button class="px-4 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full text-xs font-semibold transition">Proses QC ( 1 )</button>
+                <button class="px-4 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full text-xs font-semibold transition">Proses Bongkar ( 1 )</button>
+                <button class="px-4 py-1.5 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-full text-xs font-semibold transition">Selesai ( 0 )</button>
+                <button class="px-4 py-1.5 bg-rose-100 text-rose-700 hover:bg-rose-200 rounded-full text-xs font-semibold transition">Ditolak / Reject ( 0 )</button>
+            </div>
+        </div>
+
+        <!-- Tanggal Header Section -->
+        <div class="flex items-center justify-center my-6">
+            <div class="px-4 py-1 bg-amber-100 text-amber-800 border border-amber-200 rounded-full text-xs font-bold tracking-wide shadow-sm">
+                📅 TANGGAL: 20/10/2026[cite: 2]
+            </div>
+        </div>
+
+        <!-- List Kartu Antrian Truk Raw Material -->
+        <div class="space-y-4">
+            
+            <!-- Kartu Item 1 (Normal / Proses Bongkar) -->
+            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition p-4 sm:p-5">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                    
+                    <!-- Info Utama -->
+                    <div class="space-y-2 flex-grow">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-lg text-xs font-bold border border-amber-200">No. 001[cite: 2]</span>
+                            <span class="font-bold text-slate-900 text-base">B 9807 UFZ[cite: 2]</span>
+                            <span class="text-slate-400">•</span>
+                            <span class="text-sm font-semibold text-rose-600">PT. Indofood Sukses Makmur</span>
+                            <span class="text-slate-400">•</span>
+                            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono font-medium">Doc: RM-2026-001[cite: 2]</span>
+                        </div>
+
+                        <!-- Detail Material & Sopir -->
+                        <div class="text-xs text-slate-600 flex flex-wrap items-center gap-y-1 gap-x-3 bg-slate-50 p-2.5 rounded-xl border border-slate-100">
+                            <div>Sopir: <span class="font-semibold text-slate-800">Arief pudin</span>[cite: 2]</div>
+                            <a href="https://wa.me/" target="_blank" class="inline-flex items-center text-emerald-600 bg-emerald-50 hover:bg-emerald-100 px-2 py-0.5 rounded-full font-medium transition">
+                                <svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448c-1.638.271-6.103.95-6.103.95zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                                083853325743[cite: 2]
+                            </a>
+                            <span class="text-slate-300">|</span>
+                            <div>📦 Material Diterima: <span class="font-bold text-blue-700">Gula Pasir Kristal (Qty: 50 Ton)</span></div>
+                            <span class="text-slate-300">|</span>
+                            <div>Checker QC: <span class="font-semibold text-rose-600">BUDI</span></div>
+                            <span class="text-slate-300">|</span>
+                            <div>Lokasi Bongkar: <span class="font-semibold text-slate-800">Dock Gudang A</span></div>
+                        </div>
+
+                        <!-- Waktu Timestamp Berdasarkan Perubahan Status -->
+                        <div class="pt-1 flex flex-wrap items-center gap-2 text-xs font-medium">
+                            <span class="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-lg border border-slate-200">📥 Masuk: 07:11[cite: 2]</span>
+                            <span class="px-2.5 py-1 bg-amber-50 text-amber-800 rounded-lg border border-amber-200">🔬 Start QC: 07:30</span>
+                            <span class="px-2.5 py-1 bg-blue-50 text-blue-800 rounded-lg border border-blue-200">🏁 Finish QC: 08:15</span>
+                            <span class="px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-lg border border-emerald-200">🏗️ Start Bongkar: 08:29[cite: 2]</span>
+                            <span class="px-2.5 py-1 bg-purple-50 text-purple-800 rounded-lg border border-purple-200">✅ Finish Bongkar: 13:10[cite: 2]</span>
+                            <span class="px-2.5 py-1 bg-red-50 text-red-700 rounded-lg border border-red-200 font-bold">📤 Keluar: 13:23[cite: 2]</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons Card (Termasuk Tombol Tolak / Reject) -->
+                    <div class="flex items-center gap-2 self-end lg:self-center">
+                        <button class="px-3 py-1.5 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-xl text-xs font-semibold transition border border-rose-200">
+                            ❌ Tolak
+                        </button>
+                        <button class="px-3 py-1.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-xl text-xs font-semibold transition border border-blue-200">
+                            Detail
+                        </button>
+                        <button class="px-3 py-1.5 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-xl text-xs font-semibold transition border border-amber-200">
+                            Arsip
+                        </button>
+                        <button class="px-3 py-1.5 bg-slate-100 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl text-xs font-semibold transition border border-slate-200">
+                            Hapus
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-rose-100 py-4 text-center text-xs text-slate-400 mt-12">
+        &copy; 2026 PT. Mayora Indah Tbk, Jayanti 3 • Raw Material Inbound Queue PWA
+    </footer>
+
+</body>
+</html>
