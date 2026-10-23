@@ -12,9 +12,8 @@
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #fff1f2/20; color: #334155; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11px; margin: 0; }
+        body { background-color: #fff5f5; color: #334155; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 11px; margin: 0; }
         
-        /* Header Utama dengan nuansa Merah-Kuning Pastel */
         .nav-bar { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-bottom: 1px solid #fee2e2; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 2px rgba(0,0,0,0.02); position: sticky; top: 0; z-index: 40; flex-wrap: wrap; gap: 10px; }
         .nav-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
         
@@ -89,6 +88,9 @@
         label { font-size: 11px; font-weight: bold; color: #475569; display: block; margin-bottom: 5px; }
         input, select, textarea { width: 100%; padding: 9px 12px; border: 1px solid #e2e8f0; border-radius: 10px; box-sizing: border-box; font-size: 11px; font-family: 'Segoe UI', sans-serif; background: #fff; color: #334155; transition: 0.2s; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); }
+        .dropdown-item { cursor: pointer; padding: 8px 12px; font-size: 11px; border-bottom: 1px solid #f8fafc; background: #fff; text-align: left; }
+        .dropdown-item:hover { background-color: #f1f5f9; color: #991b1b; }
+        .relative { position: relative; }
     </style>
    <!-- Firebase SDK CDN -->
 <script type="module">
@@ -113,7 +115,7 @@
     }
 </script>
 </head>
-<body style="background-color: #fff5f5;">
+<body>
 
 <header class="nav-bar">
     <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
@@ -156,7 +158,7 @@
         <div style="display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap;">
             <div style="flex: 1; min-width: 250px; position: relative;">
                 <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #94a3b8;"></i>
-                <input type="text" id="searchInput" class="form-control" placeholder="Cari no.pol / sopir / supplier / material / no.doc..." style="padding-left: 34px;" oninput="renderAll()">
+                <input type="text" id="searchInput" class="form-control" placeholder="Cari no.pol / sopir / supplier / kode barang / no.doc..." style="padding-left: 34px;" oninput="renderAll()">
             </div>
             <button class="btn" onclick="resetData()" style="background: #fff1f2; color: #9f1239; border-color: #fecdd3;">
                 <i class="fa-solid fa-trash-can"></i> Reset Data
@@ -181,18 +183,74 @@
     </div>
 </div>
 
-<!-- Modal Pendaftaran Truk Masuk RM -->
+<!-- Modal Pendaftaran Truk Masuk RM dengan Master Supplier, Kode Barang & Konversi Pallet -->
 <div id="modalManual" class="modal">
     <div class="modal-content">
         <button type="button" onclick="closeModal('modalManual')" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:14px; font-weight:bold; cursor:pointer; color:#64748b; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #f1f5f9;"><i class="fa-solid fa-xmark"></i></button>
         <h4 style="margin-top:0; color:#991b1b; font-size: 13px; font-weight: bold; border-bottom: 1px solid #fee2e2; padding-bottom: 10px; margin-bottom: 14px;">Form Kedatangan Truk Raw Material</h4>
+        
         <form id="formPendaftaranTruk" onsubmit="submitAntrian(event)">
-            <div class="form-group"><label>Tanggal Masuk *</label><input type="date" id="mTanggal" required></div>
-            <div class="form-group"><label>Nama Sopir *</label><input type="text" id="mSopir" required placeholder="Contoh: Arief"></div>
-            <div class="form-group"><label>Nama Supplier / Ekspedisi *</label><input type="text" id="mSupplier" required placeholder="Contoh: PT. Wilmar / Indofood"></div>
-            <div class="form-group"><label>No. Polisi Truk *</label><input type="text" id="mNoPol" required placeholder="B 1234 XYZ"></div>
-            <div class="form-group"><label>No. Dokumen / PO *</label><input type="text" id="mNoDoc" required placeholder="Contoh: RM-2026-001"></div>            
-            <div class="form-group"><label>Nama Barang / Material Diterima *</label><input type="text" id="mMaterial" required placeholder="Contoh: Gula Pasir Kristal (50 Ton)"></div>
+            <div class="form-group">
+                <label>Tanggal Masuk *</label>
+                <input type="date" id="mTanggal" required>
+            </div>
+
+            <div class="form-group">
+                <label>Nama Sopir *</label>
+                <input type="text" id="mSopir" required placeholder="Contoh: Arief">
+            </div>
+
+            <!-- Dropdown Master Supplier -->
+            <div class="form-group">
+                <label>Nama Supplier *</label>
+                <select id="mSupplier" required>
+                    <option value="">— Pilih Supplier —</option>
+                    <option value="PT. Wilmar Nabati Indonesia">PT. Wilmar Nabati Indonesia</option>
+                    <option value="PT. Indofood Sukses Makmur">PT. Indofood Sukses Makmur</option>
+                    <option value="PT. Nutrindo Boga Raya">PT. Nutrindo Boga Raya</option>
+                    <option value="PT. Kerry Ingredients Indonesia">PT. Kerry Ingredients Indonesia</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>No. Polisi Truk *</label>
+                <input type="text" id="mNoPol" required placeholder="B 1234 XYZ">
+            </div>
+
+            <div class="form-group">
+                <label>No. Dokumen / PO / Surat Jalan *</label>
+                <input type="text" id="mNoDoc" required placeholder="Contoh: RM-2026-001">
+            </div>
+
+            <!-- Dropdown / Search Master Kode Barang -->
+            <div class="form-group relative">
+                <label>Kode Barang & Nama Bahan Baku *</label>
+                <input type="text" id="mKodeBarangInput" placeholder="Ketik kode barang atau nama..." autocomplete="off" oninput="filterMasterBarang()" required>
+                <div id="masterBarangDropdown" class="absolute left-0 right-0 bg-white border border-slate-200 rounded-xl shadow-lg mt-1 max-h-40 overflow-y-auto z-50 hidden"></div>
+            </div>
+
+            <!-- Qty Barang Diterima & Konversi Pallet Otomatis -->
+            <div class="form-group">
+                <label>Qty Barang Diterima (Sesuai Surat Jalan) *</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="number" id="mQty" required placeholder="Cth: 999" min="1" oninput="hitungKonversiPallet()" style="flex: 2;">
+                    <select id="mSatuan" style="flex: 1;" onchange="hitungKonversiPallet()" required>
+                        <option value="Zak">Zak</option>
+                        <option value="Drum">Drum</option>
+                        <option value="Kg">Kg</option>
+                        <option value="Ton">Ton</option>
+                        <option value="Liter">Liter</option>
+                        <option value="Pcs">Pcs</option>
+                    </select>
+                </div>
+                <span style="font-size: 10px; color: #991b1b; font-weight: bold; margin-top: 4px; display: block;" id="infoKonversiPallet">Konversi Standar Pallet: -</span>
+            </div>
+
+            <!-- Input Manual Berat Bersih (Kg) Berdasarkan Surat Jalan Supplier -->
+            <div class="form-group">
+                <label>Berat Bersih Total (Kg) dari Surat Jalan *</label>
+                <input type="number" id="mBeratKg" required placeholder="Contoh: 25000 (Isi manual sesuai Surat Jalan)" min="1">
+            </div>
 
             <div style="display:flex; gap:10px; margin-top:16px;">
                 <button type="submit" class="btn btn-primary" style="flex:1; justify-content: center; padding: 10px;">Daftarkan Kedatangan Truk →</button>
@@ -202,7 +260,7 @@
     </div>
 </div>
 
-<!-- Modal Pindah Status & Timestamp Otomatis RM -->
+<!-- Modal Pindah Status & Timestamp RM -->
 <div id="modalStatus" class="modal">
     <div class="modal-content" style="max-width: 500px;">
         <button type="button" onclick="closeModal('modalStatus')" style="position:absolute; top:16px; right:16px; background:none; border:none; font-size:14px; font-weight:bold; cursor:pointer; color:#64748b; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #f1f5f9;"><i class="fa-solid fa-xmark"></i></button>
@@ -233,6 +291,73 @@
 </div>
 
 <script>
+// Masterlist Kode Barang beserta standar isi per palet
+const masterBarangRM = [
+    { kode: "RM-TGL-01", nama: "Tepung Terigu Protein Sedang", stdPallet: 33 },
+    { kode: "RM-GLA-02", nama: "Gula Pasir Kristal Putih", stdPallet: 50 },
+    { kode: "RM-MYS-03", nama: "Minyak Nabati / Palm Oil Refined", stdPallet: 20 },
+    { kode: "RM-CCV-04", nama: "Cocoa Powder Premium", stdPallet: 40 },
+    { kode: "RM-MRG-05", nama: "Margarine / Liquid Fat Special", stdPallet: 25 }
+];
+
+let selectedBarangObj = null;
+
+function filterMasterBarang() {
+    let keyword = document.getElementById('mKodeBarangInput').value.toLowerCase().trim();
+    let dropdown = document.getElementById('masterBarangDropdown');
+    if (!dropdown) return;
+
+    dropdown.innerHTML = '';
+    if (!keyword) { dropdown.classList.add('hidden'); return; }
+
+    let matches = 0;
+    masterBarangRM.forEach(item => {
+        let textMatch = `${item.kode} | ${item.nama}`.toLowerCase();
+        if (textMatch.includes(keyword)) {
+            matches++;
+            let div = document.createElement('div');
+            div.className = 'dropdown-item';
+            div.innerText = `${item.kode} — ${item.nama} (Std: ${item.stdPallet}/plt)`;
+            
+            div.onmousedown = function(e) {
+                e.preventDefault();
+                selectedBarangObj = item;
+                document.getElementById('mKodeBarangInput').value = `${item.kode} - ${item.nama}`;
+                dropdown.classList.add('hidden');
+                hitungKonversiPallet();
+            };
+            dropdown.appendChild(div);
+        }
+    });
+
+    if (matches > 0) dropdown.classList.remove('hidden');
+    else dropdown.classList.add('hidden');
+}
+
+function hitungKonversiPallet() {
+    let qty = parseFloat(document.getElementById('mQty').value) || 0;
+    let satuan = document.getElementById('mSatuan').value;
+    let infoEl = document.getElementById('infoKonversiPallet');
+
+    if (!selectedBarangObj) {
+        infoEl.innerText = "⚠️ Pilih Kode Barang terlebih dahulu dari dropdown!";
+        return;
+    }
+
+    let std = selectedBarangObj.stdPallet;
+    let pallet = Math.floor(qty / std);
+    let sisa = qty % std;
+
+    infoEl.innerText = `Konversi Pallet Otomatis: ${pallet} Pallet + ${sisa} ${satuan} (Standar: ${std} ${satuan}/palet)`;
+}
+
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.relative')) {
+        let drop = document.getElementById('masterBarangDropdown');
+        if (drop) drop.classList.add('hidden');
+    }
+});
+
 function updateClock() {
     const now = new Date();
     const dateStr = String(now.getDate()).padStart(2, '0') + '/' + String(now.getMonth() + 1).padStart(2, '0') + '/' + now.getFullYear();
@@ -249,6 +374,8 @@ function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 function openManualModal() {
     let formEl = document.getElementById('formPendaftaranTruk');
     if (formEl) formEl.reset(); 
+    selectedBarangObj = null;
+    document.getElementById('infoKonversiPallet').innerText = "Konversi Standar Pallet: -";
     let todayIso = new Date().toISOString().split('T')[0];
     document.getElementById('mTanggal').value = todayIso;
     openModal('modalManual');
@@ -297,6 +424,19 @@ async function submitAntrian(e) {
     let currentTimeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     let currentIsoTime = new Date().toISOString();
 
+    let qtyVal = parseFloat(document.getElementById('mQty').value) || 0;
+    let satuanVal = document.getElementById('mSatuan').value;
+    let beratKgVal = parseFloat(document.getElementById('mBeratKg').value) || 0;
+    let kodeBarangVal = document.getElementById('mKodeBarangInput').value;
+
+    let konversiStr = "-";
+    if (selectedBarangObj) {
+        let std = selectedBarangObj.stdPallet;
+        let plt = Math.floor(qtyVal / std);
+        let sisa = qtyVal % std;
+        konversiStr = `${plt} Plt + ${sisa} ${satuanVal}`;
+    }
+
     try {
         const q = query(collection(window.db, 'antrian_raw_material'), where("tanggal", "==", tanggalVal));
         const querySnapshot = await getDocs(q);
@@ -316,7 +456,10 @@ async function submitAntrian(e) {
             supplier: document.getElementById('mSupplier').value,
             no_pol: document.getElementById('mNoPol').value.toUpperCase(),
             no_doc: document.getElementById('mNoDoc').value,
-            material: document.getElementById('mMaterial').value,
+            kode_barang: kodeBarangVal,
+            qty: `${qtyVal} ${satuanVal}`,
+            konversi_pallet: konversiStr,
+            berat_kg: beratKgVal, // Berat manual dari Surat Jalan supplier
             status: 'Masuk',
             time_masuk: currentTimeStr,
             time_start_qc: '-',
@@ -426,7 +569,7 @@ function renderAll() {
         let textMatch = (t.no_pol.toLowerCase().includes(keyword) || 
                          t.sopir.toLowerCase().includes(keyword) || 
                          t.supplier.toLowerCase().includes(keyword) || 
-                         t.material.toLowerCase().includes(keyword) ||
+                         t.kode_barang.toLowerCase().includes(keyword) ||
                          t.no_doc.toLowerCase().includes(keyword));
         return matchTab && textMatch;
     });
@@ -438,7 +581,6 @@ function renderAll() {
 
     let html = '';
     filtered.forEach((t, idx) => {
-        let cleanPhone = '628123456789';
         let rejectInfo = (t.status === 'Ditolak / Reject') ? `<br><span style="color:#b91c1c; font-weight:bold;">⚠️ Alasan Tolak: ${t.reject_reason || '-'}</span>` : '';
 
         html += `<div class="card">
@@ -455,7 +597,7 @@ function renderAll() {
                     </div>
 
                     <div style="color:#475569; font-size:11px;">
-                        Sopir: <strong>${t.sopir}</strong> | 📦 Material: <b style="color:#1d4ed8;">${t.material}</b> ${rejectInfo}
+                        Sopir: <strong>${t.sopir}</strong> | 📦 Kode Barang: <b style="color:#1d4ed8;">${t.kode_barang}</b> | Qty: <b>${t.qty}</b> (${t.konversi_pallet || '-'}) | Berat SJ: <b style="color:#059669;">${t.berat_kg} Kg</b> ${rejectInfo}
                     </div>
 
                     <div style="font-size: 10px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-top: 2px;">
